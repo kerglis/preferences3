@@ -161,8 +161,8 @@ module Preferences3
         after_save :update_preferences
 
         # Named scopes
-        scope :with_preferences, lambda {|preferences| build_preference_scope(preferences)}
-        scope :without_preferences, lambda {|preferences| build_preference_scope(preferences, true)}
+        scope :with_preferences, -> (preferences) { build_preference_scope(preferences) }
+        scope :without_preferences, -> (preferences) { build_preference_scope(preferences, true) }
 
         extend Preferences3::ClassMethods
         include Preferences3::InstanceMethods
