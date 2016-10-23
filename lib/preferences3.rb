@@ -275,7 +275,9 @@ module Preferences3
       end
 
       sql = statements.map! {|statement| "(#{statement})"} * ' AND '
-      {joins: joins, conditions: values.unshift(sql)}
+      # {joins: joins, conditions: values.unshift(sql)}
+
+      joins(joins).where(values.unshift(sql))
     end
   end
 
