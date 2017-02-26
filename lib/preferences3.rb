@@ -252,7 +252,7 @@ module Preferences3
         group_id, group_type = Preference.split_group(group)
         preference = preference.to_s
         definition = preference_definitions[preference.to_s]
-        value = definition.type_cast_for_database(value)
+        value = definition.type_cast(value)
         is_default = definition.default_value(group_type) == value
 
         table = "preferences_#{group_id}_#{group_type}_#{preference}"
@@ -321,7 +321,7 @@ module Preferences3
       end
 
       preferences.inject({}) do |typed_preferences, (name, value)|
-        typed_preferences[name] = value.nil? ? value : preference_definitions[name].type_cast_for_database(value)
+        typed_preferences[name] = value.nil? ? value : preference_definitions[name].type_cast(value)
         typed_preferences
       end
     end
@@ -387,7 +387,7 @@ module Preferences3
       end
 
       definition = preference_definitions[name]
-      value = definition.type_cast_for_database(value) unless value.nil?
+      value = definition.type_cast(value) unless value.nil?
       value
     end
     alias_method :prefers, :preferred
@@ -572,7 +572,7 @@ module Preferences3
           # be typecast back to 0 (''.to_i => 0)
           value = nil if value.blank?
         else
-          value = definition.type_cast_for_database(value)
+          value = definition.type_cast(value)
         end
 
         old != value
