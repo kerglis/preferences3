@@ -52,10 +52,9 @@ class Preference < ActiveRecord::Base
   end
 
   # Only searches for the group record if the group id is specified
-  prepend ActiveRecord::Base
-  def group
-    group_id ? super : group_type
-  end
+  # def group_with_optional_lookup
+  #   group_id ? super : group_type
+  # end
   # alias_method_chain :group, :optional_lookup
 
   private
